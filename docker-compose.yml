@@ -30,3 +30,17 @@ services:
       - 5432
     volumes:
       - ${PWD}/scripts/create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
+  mainApp:
+    image: python:latest
+    network_mode: host 
+    depends_on:
+      - localstack
+      - postgres
+    volumes:
+      - ${PWD}/scripts/ConnorSolution/database_manager.py:/docker-entrypoint-initsolution.d/database_manager.py
+      - ${PWD}/scripts/ConnorSolution/queue_service.py:/docker-entrypoint-initsolution.d/queue_service.py
+      - ${PWD}/scripts/ConnorSolution/main.py:/docker-entrypoint-initsolution.d/main.py
+      - ${PWD}/scripts/ConnorSolution/requirements.txt:/docker-entrypoint-initsolution.d/requirements.txt
+      - ${PWD}/scripts/ConnorSolution/run_job.sh:/docker-entrypoint-initsolution.d/run_job.sh
+    command: /docker-entrypoint-initsolution.d/run_job.sh
+
