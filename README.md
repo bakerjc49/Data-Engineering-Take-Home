@@ -1,6 +1,8 @@
 ## To Run ##
 To run you just need to run `make start` and it will spin up a new container after the existing 2, wait 30s for the queue to be up and running then install requirements and run though the queue. I did modify the indentation on the Makefile since it wouldn't run on my ubuntu box but it's the same as the original other than that.
 
+After the docker container is closed the data will be in the database.
+
 ## Summary ##
 I took the approach that this would be run sort of like a batch job that would run at a set time and go through all the messages in the queue. This would be based off of a relatively small queue size as it would not work great with a very large queue since a more continuous solution was needed. I tried to expand upon the existing docker compose file so that this was well integrated and easy to test. The program flow works the following:
 
